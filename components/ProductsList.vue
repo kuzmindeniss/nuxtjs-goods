@@ -29,7 +29,7 @@ export default {
           <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
           <span class="products-list__item-name">{{ product.name }}</span>
           <span class="products-list__item-description">{{ product.description }}</span>
-          <span class="products-list__item-price">{{ product.price }}</span>
+          <span class="products-list__item-price">{{ $numberToString(product.price) }} руб.</span>
         </li>
       </ul>
     </div>

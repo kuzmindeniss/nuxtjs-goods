@@ -15,19 +15,25 @@ export default {
     checkIsFormValid () {
       this.isValidForm = this.isNameNotEmpty && this.isImgNotEmpty && this.isPriceNotEmpty
     },
-    onNameBlur (e) {
+    onNameInput (e) {
       this.isNameTouched = true
       this.isNameNotEmpty = !!e.target.value.trim()
       this.checkIsFormValid()
     },
-    onImgBlur (e) {
+    onImgInput (e) {
       this.isImgTouched = true
       this.isImgNotEmpty = !!e.target.value.trim()
       this.checkIsFormValid()
     },
-    onPriceBlur (e) {
+    onPriceInput (e) {
       this.isPriceTouched = true
-      this.isPriceNotEmpty = !!e.target.value.trim()
+      this.isPriceNotEmpty = !!parseInt(e.target.value.trim())
+      if (isNaN(parseInt(e.target.value.trim()))) {
+        e.target.value = ''
+      } else {
+        const int = parseInt(e.target.value.trim().split(' ').join(''))
+        e.target.value = this.$numberToString(int)
+      }
       this.checkIsFormValid()
     },
     resetForm () {
@@ -50,7 +56,7 @@ export default {
       this.$store.commit('store/add', {
         name: this.$refs.name.value,
         description: this.$refs.description.value,
-        price: this.$refs.price.value
+        price: this.$refs.price.value.split(' ').join('')
       })
       this.resetForm()
     }
@@ -80,8 +86,8 @@ export default {
             required
             class="product-add__field"
             placeholder="Введите наименование товара"
-            @blur="onNameBlur"
-            @input="onNameBlur"
+            @blur="onNameInput"
+            @input="onNameInput"
           />
         </label>
         <label class="product-add__label">
@@ -101,8 +107,8 @@ export default {
             type="text"
             class="product-add__field"
             placeholder="Введите ссылку"
-            @blur="onImgBlur"
-            @input="onImgBlur"
+            @blur="onImgInput"
+            @input="onImgInput"
           />
         </label>
         <label
@@ -118,8 +124,8 @@ export default {
             type="text"
             class="product-add__field"
             placeholder="Введите цену"
-            @blur="onPriceBlur"
-            @input="onPriceBlur"
+            @blur="onPriceInput"
+            @input="onPriceInput"
           />
         </label>
         <button :class="{'product-add__button': true, 'product-add__button--active': isValidForm}"
@@ -138,11 +144,18 @@ export default {
   flex-shrink: 0;
   color: #3F3F3F;
   margin-right: 16px;
+  @media (max-width: 750px) {
+    flex-grow: 1;
+    margin-bottom: 48px;
+  }
 }
 
 .product-add__header {
   height: 36px;
   margin-bottom: 16px;
+  @media (max-width: 750px) {
+    text-align: center;
+  }
 }
 
 .product-add__title {
@@ -159,6 +172,10 @@ export default {
   padding: 24px;
   background: #FFFEFB;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
+
+  @media (max-width: 750px) {
+    position: relative;
+  }
 }
 
 .product-add__form {
