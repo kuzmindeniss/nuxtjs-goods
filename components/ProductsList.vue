@@ -9,6 +9,11 @@ export default {
       ],
       choseValue: 'default'
     }
+  },
+  computed: {
+    goods () {
+      return this.$store.state.store.goods
+    }
   }
 }
 </script>
@@ -20,71 +25,11 @@ export default {
     </div>
     <div class="products-list__list-wrapper">
       <ul class="products-list__list">
-        <li class="products-list__item">
+        <li v-for="product in goods" :key="product.id" class="products-list__item">
           <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
-        </li>
-        <li class="products-list__item">
-          <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
-        </li>
-        <li class="products-list__item">
-          <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
-        </li>
-        <li class="products-list__item">
-          <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
-        </li>
-        <li class="products-list__item">
-          <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
-        </li>
-        <li class="products-list__item">
-          <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
-        </li>
-        <li class="products-list__item">
-          <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
-        </li>
-        <li class="products-list__item">
-          <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
-        </li>
-        <li class="products-list__item">
-          <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
-        </li>
-        <li class="products-list__item">
-          <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
-        </li>
-        <li class="products-list__item">
-          <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
-          <span class="products-list__item-name">Наименование товара</span>
-          <span class="products-list__item-description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</span>
-          <span class="products-list__item-price">10 000 руб.</span>
+          <span class="products-list__item-name">{{ product.name }}</span>
+          <span class="products-list__item-description">{{ product.description }}</span>
+          <span class="products-list__item-price">{{ product.price }}</span>
         </li>
       </ul>
     </div>

@@ -29,6 +29,30 @@ export default {
       this.isPriceTouched = true
       this.isPriceNotEmpty = !!e.target.value.trim()
       this.checkIsFormValid()
+    },
+    resetForm () {
+      this.$refs.name.value = ''
+      this.$refs.description.value = ''
+      this.$refs.img.value = ''
+      this.$refs.price.value = ''
+      this.isValidForm = false
+      this.isNameNotEmpty = false
+      this.isNameTouched = false
+      this.isImgNotEmpty = false
+      this.isImgTouched = false
+      this.isPriceNotEmpty = false
+      this.isPriceTouched = false
+    },
+    onClickAddProduct (e) {
+      if (!this.isValidForm) {
+        return null
+      }
+      this.$store.commit('store/add', {
+        name: this.$refs.name.value,
+        description: this.$refs.description.value,
+        price: this.$refs.price.value
+      })
+      this.resetForm()
     }
   }
 }
@@ -47,44 +71,60 @@ export default {
           'product-add__label': true,
           'product-add__label--required': isNameTouched && !isNameNotEmpty,
           'product-add__label--failed': isNameTouched && !isNameNotEmpty
-        }">
+        }"
+        >
           <span class="product-add__field-name">Наименование товара</span>
-          <input type="text"
-                 required
-                 class="product-add__field"
-                 placeholder="Введите наименование товара"
-                 @blur="onNameBlur"
-                 @input="onNameBlur" />
+          <input
+            ref="name"
+            type="text"
+            required
+            class="product-add__field"
+            placeholder="Введите наименование товара"
+            @blur="onNameBlur"
+            @input="onNameBlur"
+          />
         </label>
         <label class="product-add__label">
           <span class="product-add__field-name">Описание товара</span>
-          <textarea class="product-add__field" placeholder="Введите описание товара" />
+          <textarea ref="description" class="product-add__field" placeholder="Введите описание товара"/>
         </label>
-        <label :class="{
-          'product-add__label': true,
-          'product-add__label--required': isImgTouched && !isImgNotEmpty,
-          'product-add__label--failed': isImgTouched && !isImgNotEmpty
-        }">
+        <label
+          :class="{
+            'product-add__label': true,
+            'product-add__label--required': isImgTouched && !isImgNotEmpty,
+            'product-add__label--failed': isImgTouched && !isImgNotEmpty
+          }"
+        >
           <span class="product-add__field-name">Ссылка на изображение товара</span>
-          <input type="text"
-                 class="product-add__field"
-                 placeholder="Введите ссылку"
-                 @blur="onImgBlur"
-                 @input="onImgBlur" />
+          <input
+            ref="img"
+            type="text"
+            class="product-add__field"
+            placeholder="Введите ссылку"
+            @blur="onImgBlur"
+            @input="onImgBlur"
+          />
         </label>
-        <label :class="{
-          'product-add__label': true,
-          'product-add__label--required': isPriceTouched && !isPriceNotEmpty,
-          'product-add__label--failed': isPriceTouched && !isPriceNotEmpty
-        }">
+        <label
+          :class="{
+            'product-add__label': true,
+            'product-add__label--required': isPriceTouched && !isPriceNotEmpty,
+            'product-add__label--failed': isPriceTouched && !isPriceNotEmpty
+          }"
+        >
           <span class="product-add__field-name">Цена товара</span>
-          <input type="text"
-                 class="product-add__field"
-                 placeholder="Введите цену"
-                 @blur="onPriceBlur"
-                 @input="onPriceBlur" />
+          <input
+            ref="price"
+            type="text"
+            class="product-add__field"
+            placeholder="Введите цену"
+            @blur="onPriceBlur"
+            @input="onPriceBlur"
+          />
         </label>
-        <button :class="{'product-add__button': true, 'product-add__button--active': isValidForm}" @click.prevent>
+        <button :class="{'product-add__button': true, 'product-add__button--active': isValidForm}"
+                @click.prevent="onClickAddProduct"
+        >
           Добавить товар
         </button>
       </form>
