@@ -10,5 +10,8 @@ export const mutations = {
       id: state.goods.length + Date.now(),
       ...item
     })
+  },
+  delete (state, id) {
+    state.goods = state.goods.filter(item => id !== item.id)
   }
 }

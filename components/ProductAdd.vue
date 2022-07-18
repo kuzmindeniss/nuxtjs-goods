@@ -8,7 +8,8 @@ export default {
       isImgNotEmpty: false,
       isImgTouched: false,
       isPriceNotEmpty: false,
-      isPriceTouched: false
+      isPriceTouched: false,
+      isProductAdded: false
     }
   },
   methods: {
@@ -53,10 +54,19 @@ export default {
       if (!this.isValidForm) {
         return null
       }
+      this.isProductAdded = true
+      setTimeout(() => {
+        this.isProductAdded = false
+      }, 1000)
       this.$store.commit('store/add', {
         name: this.$refs.name.value,
         description: this.$refs.description.value,
         price: this.$refs.price.value.split(' ').join('')
+      })
+      this.$toast({
+        type: 'success',
+        header: 'Товар добавлен',
+        text: `Товар ${this.$refs.name.value} успешно добавлен`
       })
       this.resetForm()
     }
@@ -71,7 +81,7 @@ export default {
         Добавление товара
       </h2>
     </div>
-    <div class="product-add__body">
+    <div :class="{'product-add__body': true, 'product-add__body--added': isProductAdded}">
       <form class="product-add__form">
         <label :class="{
           'product-add__label': true,
@@ -172,6 +182,12 @@ export default {
   padding: 24px;
   background: #FFFEFB;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
+  border: 2px solid transparent;
+  transition: box-shadow 1s;
+  &--added {
+    //border:2px solid #25ff00;
+    box-shadow: 0 20px 30px rgba(37, 255, 0, 0.5), 0 6px 10px rgba(37, 255, 0, 0.5);
+  }
 
   @media (max-width: 750px) {
     position: relative;

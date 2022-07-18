@@ -24,12 +24,14 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/index.css'
+    '@/index.css',
+    '~/assets/css/toast.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/utils.js'
+    { src: '~/plugins/utils.js', mode: 'client' },
+    { src: '~/plugins/toast.js', mode: 'client', body: true }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
