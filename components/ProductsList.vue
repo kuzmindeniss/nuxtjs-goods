@@ -4,6 +4,7 @@ export default {
     return {
       items: [
         { label: 'По умолчаню', value: 'default' },
+        { label: 'По названию', value: 'name' },
         { label: 'По цене min', value: 'min' },
         { label: 'По цене max', value: 'max' }
       ],
@@ -13,6 +14,19 @@ export default {
   computed: {
     goods () {
       return this.$store.state.store.goods
+    },
+    filteredGoods () {
+      const goods = [...this.$store.state.store.goods]
+      if (this.choseValue === 'min') {
+        goods.sort((a, b) => a.price - b.price)
+      }
+      if (this.choseValue === 'mix') {
+        goods.sort((a, b) => b.price - a.price)
+      }
+      if (this.choseValue === 'name') {
+        goods.sort((a, b) => b.name > a.name ? -1 : 1)
+      }
+      return goods
     }
   },
   methods: {
@@ -30,7 +44,7 @@ export default {
     </div>
     <div class="products-list__list-wrapper">
       <TransitionGroup :appear="true" enter-class="products-list__item-enter" name="products-list__item" class="products-list__list" tag="ul">
-        <li v-for="product in goods" :key="product.id" class="products-list__item">
+        <li v-for="product in filteredGoods" :key="product.id" class="products-list__item">
           <img src="/product-photo.jpg" width="332" height="200" alt="product" class="products-list__item-photo">
           <span class="products-list__item-name">{{ product.name }}</span>
           <span class="products-list__item-description">{{ product.description }}</span>
