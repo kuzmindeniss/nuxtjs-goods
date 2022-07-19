@@ -1,6 +1,7 @@
 <template>
   <div class="app">
-    <div class="app-wrapper">
+    <PreloaderComponent v-if="loading"/>
+    <div v-else class="app-wrapper">
       <ProductAdd/>
       <ProductsList/>
     </div>
@@ -9,7 +10,23 @@
 
 <script>
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+  mounted () {
+    setTimeout(() => {
+      this.finish()
+    }, 800)
+  },
+  data: () => ({
+    loading: true
+  }),
+  methods: {
+    start () {
+      this.loading = true
+    },
+    finish () {
+      this.loading = false
+    }
+  }
 }
 </script>
 

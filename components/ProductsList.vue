@@ -20,7 +20,7 @@ export default {
       if (this.choseValue === 'min') {
         goods.sort((a, b) => a.price - b.price)
       }
-      if (this.choseValue === 'mix') {
+      if (this.choseValue === 'max') {
         goods.sort((a, b) => b.price - a.price)
       }
       if (this.choseValue === 'name') {
@@ -59,6 +59,7 @@ export default {
 <style scoped lang="scss">
 .products-list__header {
   position: relative;
+  z-index: 1;
   display: flex;
   justify-content: flex-end;
   align-content: center;
